@@ -31,4 +31,4 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - Getting Started: getting-started.md
+  - First Test: first-test.md
