@@ -2,6 +2,4 @@
 
 Your documentation homepage. Edit this file to change the content.
 
-## Quick Links
-
-- [Getting Started](getting-started.md)
+## Hello there in the world of test and learning stuff..
