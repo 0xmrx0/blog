@@ -1,5 +1,8 @@
-# Welcome to My Pentest Wiki 
+# 🎖️ About
+A curated collection of my notes on Hacking, and Security. concise, and openly shared
 
-Your documentation homepage. Edit this file to change the content.
+# 👤 Whoami
+SURAJ Aka 0xmr
 
-## Hello there in the world of test and learning stuff..
+# 🌟 Why This Exists?
+I believe in structured knowledge, free learning, and documenting what I explore. This site acts as my personal knowledge base, freely accessible to anyone curious.
