@@ -1,5 +1,5 @@
 site_name: Pentest Wiki
-site_description: My Pentesting documentation
+
 theme:
   name: material
   palette:
@@ -12,23 +12,16 @@ theme:
         icon: material/brightness-7
         name: Switch to dark mode
   features:
-    - navigation.tabs
     - navigation.sections
+    - navigation.expand
     - navigation.top
     - search.suggest
-    - search.highlight
     - content.code.copy
 
 markdown_extensions:
-  - pymdownx.highlight:
-      anchor_linenums: true
   - pymdownx.superfences
-  - pymdownx.tabbed:
-      alternate_style: true
   - admonition
-  - pymdownx.details
-  - attr_list
 
 nav:
-  - Home: index.md
+  - Welcome: index.md
   - First Test: first-test.md
