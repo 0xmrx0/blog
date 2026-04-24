@@ -1,0 +1,1085 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../..">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Linux Cheatsheet - Pentest Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#linux-enum" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Pentest Wiki" class="md-header__button md-logo" aria-label="Pentest Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Pentest Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Linux Cheatsheet
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Pentest Wiki" class="md-nav__button md-logo" aria-label="Pentest Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Pentest Wiki
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Welcome
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cheatsheets
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Cheatsheets
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux Cheatsheet
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux Cheatsheet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ready-to-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ready to Start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System &amp; Identity
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#processes-runtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Processes &amp; Runtime
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#network-listeners" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Network &amp; listeners
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#suids-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SUID's Files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#capabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capabilities
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ssh-env-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SSH &amp; .env Files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running Database
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#config-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Config Files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#password-findings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Password Finding's
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crontabs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CronTab's
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#automation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Automation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#credential-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Credential Access
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#misconfiguration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Misconfiguration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#active-directory-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Active Directory Files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proc-files-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proc Files:-
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Proc Files:-">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#more-thinks-coming-soon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        More thinks Coming soon...
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ready-to-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ready to Start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System &amp; Identity
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#processes-runtime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Processes &amp; Runtime
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#network-listeners" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Network &amp; listeners
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#suids-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SUID's Files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#capabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capabilities
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ssh-env-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SSH &amp; .env Files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running Database
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#config-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Config Files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#password-findings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Password Finding's
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crontabs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CronTab's
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#automation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Automation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#credential-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Credential Access
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#misconfiguration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Misconfiguration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#active-directory-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Active Directory Files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proc-files-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proc Files:-
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Proc Files:-">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#more-thinks-coming-soon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        More thinks Coming soon...
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="linux-enum">Linux Enum</h1>
+<blockquote>
+<p>I am creating a simple Quick recon check list for linux environment for Post Exploitation.</p>
+</blockquote>
+<hr />
+<h2 id="ready-to-start">Ready to Start</h2>
+<div class="highlight"><pre><span></span><code>whoami
+id
+groups
+sudo<span class="w"> </span>-l
+sudo<span class="w"> </span>-v
+crontab<span class="w"> </span>-l
+cat<span class="w"> </span>/etc/crontab
+ls<span class="w"> </span>-la<span class="w"> </span>/
+</code></pre></div>
+<hr />
+<h2 id="system-identity">System &amp; Identity</h2>
+<div class="highlight"><pre><span></span><code>id<span class="w">                              </span><span class="c1"># User&#39;s identity information</span>
+hostname<span class="w">                        </span><span class="c1"># Host Computer Details</span>
+whoami<span class="w">                          </span><span class="c1"># who are you !</span>
+uname<span class="w"> </span>-a<span class="w">                        </span><span class="c1"># Display system information</span>
+sudo<span class="w"> </span>-l<span class="w">                         </span><span class="c1"># which files you can run as root</span>
+sudo<span class="w"> </span>-V<span class="w">                         </span><span class="c1"># sudo version Exploit</span>
+cat<span class="w"> </span>/etc/os-release<span class="w">             </span><span class="c1"># Os Details for kernal Exploit</span>
+uptime<span class="w">                          </span><span class="c1"># Shows how long the system has been running</span>
+last<span class="w"> </span>-n<span class="w"> </span><span class="m">5</span><span class="w">                       </span><span class="c1"># shows the login history of last 5 users</span>
+cat<span class="w"> </span>/etc/passwd<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;sh$&#39;</span><span class="w"> </span><span class="c1"># list users</span>
+</code></pre></div>
+<h2 id="processes-runtime">Processes &amp; Runtime</h2>
+<div class="highlight"><pre><span></span><code>ps<span class="w"> </span>auxf
+ps<span class="w"> </span>-ef<span class="w"> </span>--forest
+</code></pre></div>
+<h2 id="network-listeners">Network &amp; listeners</h2>
+<div class="highlight"><pre><span></span><code>ss<span class="w"> </span>-tlnp<span class="w">             </span>
+netstat<span class="w"> </span>-tunlp
+ip<span class="w"> </span>a
+ip<span class="w"> </span>addr<span class="w"> </span>show
+ip<span class="w"> </span>route<span class="w"> </span>show<span class="w">            </span><span class="c1"># show Routes in Linux</span>
+route<span class="w"> </span>print<span class="w">              </span><span class="c1"># show Routes in Windows</span>
+
+cat<span class="w"> </span>/etc/resolv.conf<span class="w">     </span><span class="c1"># check DNS configuration in Linux</span>
+ipconfig<span class="w"> </span>/all<span class="w">            </span><span class="c1"># check DNS configuration in Windows</span>
+</code></pre></div>
+<h2 id="suids-files">SUID's  Files</h2>
+<blockquote>
+<p>Special file permissions in Linux that allow users to execute files with the permissions of the file's owner.</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="c1"># Important !</span>
+find<span class="w"> </span>/<span class="w"> </span>-perm<span class="w"> </span>-4000<span class="w"> </span><span class="m">2</span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>ls<span class="w"> </span>-lah
+
+<span class="c1"># Common !</span>
+find<span class="w"> </span>/<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-perm<span class="w"> </span>-4000<span class="w"> </span><span class="m">2</span>&gt;/dev/null
+find<span class="w"> </span>/<span class="w"> </span>-perm<span class="w"> </span>-4000<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-ls<span class="w"> </span><span class="m">2</span>&gt;/dev/null
+
+<span class="c1"># Extract full Detail&#39;s</span>
+find<span class="w"> </span>/<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-perm<span class="w"> </span>-4000<span class="w"> </span>-ls<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="p">|</span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;root&#39;</span>
+find<span class="w"> </span>/<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-perm<span class="w"> </span>-4000<span class="w"> </span>-user<span class="w"> </span>&lt;Username<span class="w"> </span>Here&gt;<span class="w"> </span><span class="m">2</span>&gt;/dev/null
+
+<span class="c1"># Custom !</span>
+find<span class="w"> </span>/<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-a<span class="w"> </span><span class="se">\(</span><span class="w"> </span>-perm<span class="w"> </span>-u+s<span class="w"> </span>-o<span class="w"> </span>-perm<span class="w"> </span>-g+s<span class="se">\)</span><span class="w"> </span>-exec<span class="w"> </span>ls<span class="w"> </span>-l<span class="w"> </span><span class="o">{}</span><span class="w"> </span><span class="se">\;</span><span class="w"> </span><span class="m">2</span>&gt;<span class="w"> </span>/dev/null
+</code></pre></div>
+<h2 id="capabilities">Capabilities</h2>
+<div class="highlight"><pre><span></span><code>getcap<span class="w"> </span>-r<span class="w"> </span>/<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span>
+</code></pre></div>
+<h2 id="ssh-env-files">SSH &amp; .env  Files</h2>
+<div class="highlight"><pre><span></span><code>env
+printenv
+cat<span class="w"> </span>/proc/<span class="nv">$$</span>/environ
+
+
+find<span class="w"> </span>/<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span><span class="se">\(</span><span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*id_rsa*&quot;</span><span class="w"> </span>-o<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*id_dsa*&quot;</span><span class="w"> </span>-o<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*id_ecdsa*&quot;</span><span class="w"> </span>-o<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*id_ed25519*&quot;</span><span class="w"> </span>-o<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*authorized_keys*&quot;</span><span class="w"> </span>-o<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*ssh_host*&quot;</span><span class="w"> </span>-o<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;.env&quot;</span><span class="w">  </span><span class="se">\)</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null
+</code></pre></div>
+<h2 id="running-database">Running Database</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check Running Databases</span>
+<span class="o">(</span>systemctl<span class="w"> </span>list-units<span class="w"> </span>--type<span class="o">=</span>service<span class="p">;</span><span class="w"> </span>ss<span class="w"> </span>-tulnp<span class="o">)</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-Ei<span class="w"> </span><span class="s1">&#39;mysql|mariadb|postgresql|mssql|3306|5432|1433&#39;</span>
+</code></pre></div>
+<h2 id="config-files">Config Files</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># Custom extension file search</span>
+find<span class="w"> </span>/<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.&lt;Extension Name&gt;&quot;</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null
+
+<span class="c1"># Search Whole file system</span>
+find<span class="w"> </span>/<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span><span class="se">\(</span><span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.xml&quot;</span><span class="w"> </span>-o<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.db&quot;</span><span class="w"> </span>-o<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.sql&quot;</span><span class="w"> </span>-o<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.config&quot;</span><span class="w"> </span><span class="se">\)</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null
+
+<span class="c1"># Specific Paths /opt /etc /home /var</span>
+find<span class="w"> </span>/opt<span class="w"> </span>/var<span class="w"> </span>/home<span class="w"> </span>/etc<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span><span class="se">\(</span><span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.xml&quot;</span><span class="w"> </span>-o<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.db&quot;</span><span class="w"> </span>-o<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.sql&quot;</span><span class="w"> </span>-o<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.config&quot;</span><span class="w"> </span><span class="se">\)</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null
+</code></pre></div>
+<h2 id="password-findings">Password Finding's</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># Custom string search</span>
+grep<span class="w"> </span>-ri<span class="w"> </span>--include<span class="o">=</span><span class="s2">&quot;*.&lt;Extension&gt;&quot;</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;&lt;String&gt;&quot;</span><span class="w"> </span>&lt;Directory&gt;<span class="w"> </span><span class="m">2</span>&gt;/dev/null
+
+<span class="c1"># Password string search in /opt</span>
+grep<span class="w"> </span>-ri<span class="w"> </span>--include<span class="o">=</span><span class="s2">&quot;*.xml&quot;</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;Password&quot;</span><span class="w"> </span>/opt<span class="w"> </span><span class="m">2</span>&gt;/dev/null
+</code></pre></div>
+<h2 id="crontabs">CronTab's</h2>
+<blockquote>
+<p>Crontab file is the system-wide crontab used to schedule system-level tasks in Linux</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="w"> </span><span class="c1"># Checking Running Jobs</span>
+<span class="w"> </span>cat<span class="w"> </span>/etc/crontab
+
+<span class="w"> </span><span class="c1"># Writeable Cron Jobs</span>
+<span class="w"> </span><span class="c1"># Writeable Cron Jobs Dependency (Files, python library, config files...)</span>
+</code></pre></div>
+<blockquote>
+<p>Adding soon........!!!</p>
+</blockquote>
+<h2 id="automation">Automation</h2>
+<blockquote>
+<p>Linux Smart Enumeration Script <a href="https://github.com/diego-treitos/linux-smart-enumeration/tree/master">lse</a></p>
+</blockquote>
+<ul>
+<li>Level 1
+<div class="highlight"><pre><span></span><code>./lse.sh<span class="w"> </span>-l<span class="w"> </span><span class="m">1</span>
+</code></pre></div></li>
+<li>Level 2
+<div class="highlight"><pre><span></span><code>./lse.sh<span class="w"> </span>-l<span class="w"> </span><span class="m">2</span>
+</code></pre></div></li>
+</ul>
+<blockquote>
+<p>Linepeass <a href="https://github.com/peass-ng/PEASS-ng/tree/master">Peass-NG</a></p>
+</blockquote>
+<ul>
+<li>Standard Level
+<div class="highlight"><pre><span></span><code>./linpeas.sh
+</code></pre></div></li>
+</ul>
+<hr />
+<h3 id="credential-access">Credential Access</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Reused Passwords</span>
+<span class="c1"># Credentials from configuration files</span>
+<span class="c1"># Credentials from local database files</span>
+<span class="c1"># Credentials from Bash History</span>
+<span class="c1"># ssh file and Environment variables</span>
+<span class="c1"># sudo Access</span>
+<span class="c1"># Group Privilleges (Docker, LXD, etc)</span>
+</code></pre></div>
+<hr />
+<h3 id="misconfiguration">Misconfiguration</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Immediate System Identity</span>
+<span class="c1"># SUID, SGID Files</span>
+<span class="c1"># Intersting Capabilities on Binary</span>
+<span class="c1"># Credential Access Files</span>
+<span class="c1"># Review Internal Ports &amp; Services</span>
+<span class="c1"># Writing Path ($PATH Hijacking)</span>
+<span class="c1"># LD_PRELOAD and LD_PRELOAD set in /etc/sudoers</span>
+<span class="c1"># Kernel Exploits (Last Resort)</span>
+<span class="c1"># Automation Tools (lse.sh, linpeass.sh, linEnum, pspy64, linux-exploit-suggester.sh, linux-privesc-check.sh)</span>
+
+<span class="c1"># Active Directory Files</span>
+<span class="c1"># Proc Files</span>
+</code></pre></div>
+<hr />
+<h2 id="active-directory-files">Active Directory Files</h2>
+<div class="highlight"><pre><span></span><code><span class="o">===================================================================================</span>
+Active<span class="w"> </span>Directory:-<span class="w"> </span>keytab<span class="w"> </span>,<span class="w"> </span><span class="nv">config</span><span class="w"> </span>
+<span class="o">===================================================================================</span>
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+find<span class="w"> </span>/etc<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span><span class="se">\(</span><span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.keytab&quot;</span><span class="w"> </span>-o<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.config&quot;</span><span class="w"> </span><span class="se">\)</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Files:-
+
+/etc/krb5.keytab<span class="w">                               </span><span class="c1"># Kerberos keytab file (sensitive!)</span>
+/etc/krb5.conf<span class="w">                                 </span><span class="c1"># Kerberos configuration</span>
+/etc/krb5kdc/kdc.conf<span class="w">                          </span><span class="c1"># KDC configuration</span>
+/var/lib/krb5kdc/principal<span class="w">                     </span><span class="c1"># Kerberos principal database</span>
+/etc/sssd/sssd.conf<span class="w">                            </span><span class="c1"># SSSD configuration (LDAP/AD)</span>
+/etc/ldap/ldap.conf<span class="w">                            </span><span class="c1"># LDAP configuration</span>
+/etc/openldap/ldap.conf<span class="w">                        </span><span class="c1"># OpenLDAP configuration</span>
+<span class="o">==========================================================================================================================================================================================================</span>
+find<span class="w"> </span>/etc<span class="w"> </span>/opt<span class="w"> </span>/var/lib<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span><span class="se">\(</span><span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;krb5.conf&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.keytab&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;sssd.conf&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;ldap.conf&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;nslcd.conf&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;realmd.conf&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;smb.conf&quot;</span><span class="w"> </span><span class="se">\)</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null
+<span class="o">==========================================================================================================================================================================================================</span>
+</code></pre></div>
+<h2 id="proc-files-">Proc Files:-</h2>
+<div class="highlight"><pre><span></span><code><span class="o">==================================================================================</span>
+Proc<span class="w"> </span>Files:-<span class="w"> </span>PID<span class="s1">&#39;s , Version, arp, environ , cmdline , tcp , dev , mounts</span>
+<span class="s1">==================================================================================</span>
+<span class="s1">Files:-</span>
+
+<span class="s1">/proc/version                # kernel version</span>
+<span class="s1">/proc/net/dev                # show all connected interfaces (eth0, tun0, docker)</span>
+<span class="s1">/proc/net/tcp                # check for open ports (Grab a :hex number and convert into decimal number).</span>
+<span class="s1">/proc/self/environ           # env variables</span>
+<span class="s1">/proc/*/environ               </span>
+<span class="s1">/proc/$$/environ             # current running process  cat /proc/$$/environ | tr &#39;</span><span class="se">\0</span><span class="s1">&#39; &#39;</span><span class="se">\n</span><span class="err">&#39;</span>
+/proc/self/cmdline<span class="w">           </span><span class="c1"># current running process</span>
+/proc/*/cmdline<span class="w"> </span>
+/proc/cmdline
+/proc/mounts<span class="w">                 </span><span class="c1"># grep the nfs share info</span>
+/proc/net/arp<span class="w">                </span><span class="c1"># IP and MAC Address of Connected Devices</span>
+</code></pre></div>
+<h4 id="more-thinks-coming-soon">More thinks Coming soon...</h4>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
