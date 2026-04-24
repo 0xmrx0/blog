@@ -24,6 +24,5 @@ markdown_extensions:
 
 nav:
   - Welcome: index.md
-  - First Test: first-test.md
   - Cheatsheets:
     - Linux Cheatsheet: cheat/linux.md
